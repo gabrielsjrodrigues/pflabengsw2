@@ -26,4 +26,4 @@ EXPOSE 8000
 
 # Comando padrão para iniciar o FastAPI no container
 # O wait-for-it.sh garante que o MySQL esteja pronto antes do FastAPI iniciar.
-CMD ["uvicorn", "main:api", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/usr/local/bin/wait-for-it.sh", "mysql.railway.internal:3306", "--", "uvicorn", "main:api", "--host", "0.0.0.0", "--port", "8000"]
