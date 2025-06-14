@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # === Importações Modulares ===
 # Importa as funções de conexão e validação de variáveis de ambiente do módulo database.py
 # AGORA TAMBÉM IMPORTA Base e engine para a criação de tabelas
-from src.database import validar_variaveis_ambiente, get_connection, Base, engine
+from src.database import Base, engine
 # Importa os modelos Pydantic (necessário apenas para DadosInscricao se for usar aqui)
 from src.models import DadosInscricao # Importa apenas o que é usado NESTE arquivo
 
