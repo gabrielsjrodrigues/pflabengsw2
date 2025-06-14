@@ -22,8 +22,9 @@ COPY main.py .
 COPY src ./src 
 
 # Expõe a porta que o Uvicorn usará para atender as requisições
-EXPOSE 8000
+EXPOSE 8000 # O Cloud Run usará $PORT, mas esta linha é informativa
 
 # Comando padrão para iniciar o FastAPI no container
 # O wait-for-it.sh garante que o MySQL esteja pronto antes do FastAPI iniciar.
-CMD ["/usr/local/bin/wait-for-it.sh", "mysql.railway.internal:3306", "--", "uvicorn", "main:api", "--host", "0.0.0.0", "--port", "8000"]
+# ATENÇÃO: Usando o IP público do Cloud SQL e a variável de ambiente $PORT do Cloud Run.
+CMD ["/usr/local/bin/wait-for-it.sh", "34.133.4.235:3306", "--", "uvicorn", "main:api", "--host", "0.0.0.0", "--port", "$PORT"]

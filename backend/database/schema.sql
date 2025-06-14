@@ -4,6 +4,14 @@
 -- As tabelas serão criadas diretamente no banco de dados "railway" fornecido pelo Railway.
 
 -- ===================================================================
+-- GARANTIR UM ESTADO LIMPO: REMOVER TABELAS EXISTENTES (na ordem inversa das dependências)
+-- ===================================================================
+DROP TABLE IF EXISTS inscricoes;
+DROP TABLE IF EXISTS oportunidades;
+DROP TABLE IF EXISTS voluntarios;
+DROP TABLE IF EXISTS ongs;
+
+-- ===================================================================
 -- 2) Tabela de ONGs
 -- ===================================================================
 CREATE TABLE IF NOT EXISTS ongs (
@@ -70,11 +78,3 @@ CREATE TABLE IF NOT EXISTS inscricoes (
     FOREIGN KEY (voluntario_id) REFERENCES voluntarios(id) ON DELETE CASCADE,
     UNIQUE (oportunidade_id, voluntario_id)
 );
-
--- ===================================================================
--- 6) Dados de exemplo para testes iniciais (ONG de exemplo mantida)
--- ===================================================================
-
-INSERT INTO ongs (nome, email, senha, endereco)
-VALUES ('ONG Amor e Cuidado', 'amor.cuidado@exemplo.com', 'senha_hash_aqui', 'Rua da Solidariedade, 456, São Paulo')
-ON DUPLICATE KEY UPDATE nome = VALUES(nome), email = VALUES(email);
