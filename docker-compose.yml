@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: site_voluntariado
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=site_voluntariado
+    depends_on:
+      - mysql
+
+  frontend: # <--- ESTE SERVIÇO ESTAVA FALTANDO! ELE DEVE ESTAR AQUI.
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # Mapeia a porta 3000 do host para a porta 80 do contêiner (onde Nginx serve)
+    depends_on:
+      - backend # Garante que o backend suba antes do frontend
+
+volumes:
+  mysql_data:

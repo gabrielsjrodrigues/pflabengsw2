@@ -1,0 +1,28 @@
+# Ignora a pasta de módulos do Node.js
+node_modules/
+
+# Ignora arquivos de ambiente local
+.env
+.env.local
+
+# Ignora a pasta de build do React (gerada por 'npm run build')
+build/
+
+# Ignora arquivos de cache do Python
+__pycache__/
+*.pyc
+
+# Ignora arquivos de log
+*.log
+logs/
+
+# Ignora arquivos de configuração de ambiente específicas do usuário/desenvolvimento
+.DS_Store # Mac specific
+.vscode/ # Configurações locais do VSCode (se não forem compartilhadas)
+.history/ # Histórico de arquivos (se seu editor usar)
+.temp/
+tmp/
+
+# Arquivos de editor de texto como Vim/Sublime/etc.
+*.swp
+*~
